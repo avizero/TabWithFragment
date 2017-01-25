@@ -1,5 +1,6 @@
 package com.example.avi.tabwithfragment;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent i = new Intent(this, MyPreferencesActivity.class);
+            startActivity(i);
             return true;
         }
 
