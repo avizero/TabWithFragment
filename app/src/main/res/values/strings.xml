@@ -11,19 +11,11 @@
     <string-array name="titles">
         <item>Home</item>
         <item>Tutorials</item>
-        <item>My Apps</item>
-        <item>OS Versions</item>
-        <item>Tools</item>
-        <item>About Us</item>
     </string-array>
 
     <array name="icons">
-        <item>@drawable/home</item>
-        <item>@drawable/tutorials</item>
-        <item>@drawable/app</item>
-        <item>@drawable/os</item>
-        <item>@drawable/tool</item>
-        <item>@drawable/about</item>
+        <item>@drawable/ic_folder_black_24dp</item>
+        <item>@drawable/ic_movie_black_24dp</item>
     </array>
 
 </resources>
