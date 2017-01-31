@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <EditTextPreference android:title="Your Name"
-        android:key="username"
-        android:summary="Please provide your username"></EditTextPreference>
+    <EditTextPreference android:title="@string/serverTitle"
+        android:key="serverAddress"
+        android:summary="@string/serverSummary"
+        android:defaultValue="http://192.168.50.237:8000/rpc2"></EditTextPreference>
     <CheckBoxPreference android:title="Application Updates"
         android:defaultValue="false"
         android:summary="This option if selected will allow the application to check for latest versions."

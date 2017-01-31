@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="imgdesc">imgdesc</string>
     <string name="serverTitle">Сервер</string>
-    <string name="serverSummary">адрес сервера</string>
+    <string name="serverSummary">Адрес сервера</string>
     <string name="emailSummary">тратата</string>
     <string name="emailTitle">трулялял</string>
     <string name="title_activity_settings">Settings</string>
