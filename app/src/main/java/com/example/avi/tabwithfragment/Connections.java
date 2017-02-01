@@ -31,14 +31,8 @@ public class Connections {
      //   } catch (MalformedURLException e) {
        //     e.printStackTrace();
      //   }
-
-
-
             Integer i = (Integer)client.call("add",10, 3);
             Log.d("Asdf", Integer.toString(i));
-
-
-
     }
 
     public void getDir(String dirName){

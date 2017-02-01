@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 
 public class MainActivity extends AppCompatActivity {
+    DownloadTask mt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mt = new DownloadTask(this);
+        mt.execute("doIt");
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Controls"));
