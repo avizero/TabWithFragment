@@ -33,11 +33,23 @@ public class DownloadTask extends AsyncTask<String, Void, Connections> {
     @Override
     protected Connections doInBackground(String... commands) {
         //Connections con = new Connections();
+        try {
+
+            client = new XMLRPCClient(new URL("http://192.168.50.237:8000/rpc2"));
+            client.setTimeout(5); //5 sec
+
+        } catch (Exception e) {
+            error = e;
+            e.printStackTrace();
+            return null;
+        }
+
+
         switch (commands[0]) {
             case "doIt":
                 try {
 
-//                    String server = sp.getString("serverAddress", "");
+                    // String server = sp.getString("serverAddress", "");
                     // System.out.println(server);
 
                     //con.doIt(server);
@@ -50,7 +62,7 @@ public class DownloadTask extends AsyncTask<String, Void, Connections> {
                     Log.d("Asdf", Integer.toString(i));
 
                 } catch (XMLRPCTimeoutException e) {
-                    //  System.out.println("Ha HA HA");
+                    //  System.out.println("HA HA HA");
                     e.printStackTrace();
                     error = e;
                     return null;
@@ -64,7 +76,9 @@ public class DownloadTask extends AsyncTask<String, Void, Connections> {
                     return null;
                 }
                 //return con;
+                //return "zaglushka!";
             case "getDir":
+
                 //con.getDir(commands[1]);
                 //return con;
             case "startPlay":
