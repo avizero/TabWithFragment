@@ -3,6 +3,7 @@ package com.example.avi.tabwithfragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,12 +17,17 @@ import de.timroes.axmlrpc.XMLRPCTimeoutException;
  * Created by avi on 31.01.2017.
  */
 // TODO объеденить вместе с connections
-public class DownloadTask extends AsyncTask<String, Void, Connections> {
+public class DownloadTask extends AsyncTask<String, Void, StatusMpv>  {
 
     private Context mContext;
 
-    SharedPreferences sp;
+    //SharedPreferences sp;
     //Connections con;
+
+    //public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+    //    // TODO Проверять общие настройки, ключевые параметры и изменять UI
+        // или поведение приложения, если потребуется.
+    //}
 
     public DownloadTask (Context context){
         mContext = context;
@@ -31,30 +37,40 @@ public class DownloadTask extends AsyncTask<String, Void, Connections> {
     XMLRPCClient client;
 
     @Override
-    protected Connections doInBackground(String... commands) {
-        //Connections con = new Connections();
-        try {
+    protected void onPreExecute() {
 
-            client = new XMLRPCClient(new URL("http://192.168.50.237:8000/rpc2"));
+       // super.onPreExecute();
+        //get sharedPreferences here
+        //SharedPreferences sharedPreferences = mContext.getSharedPreferences() <SharedPreferencesName>, <Mode>);
+
+    }
+
+    @Override
+    protected StatusMpv doInBackground(String... commands) {
+        //Connections con = new Connections();
+
+        try {
+            client = new XMLRPCClient(new URL(StatusMpv.getServerAddress()));
             client.setTimeout(5); //5 sec
 
         } catch (Exception e) {
             error = e;
             e.printStackTrace();
-            return null;
+            //return null;
         }
 
 
         switch (commands[0]) {
             case "doIt":
                 try {
-
-                    // String server = sp.getString("serverAddress", "");
-                    // System.out.println(server);
+                    //String server = sp.getString("serverAddress", "");
+                    //String server = sp.getString("serverAddress", "");
+                    //String server = sp.getString("server", ""); образец
+                    //System.out.println(server);
 
                     //con.doIt(server);
-                    client = new XMLRPCClient(new URL("http://192.168.50.237:8000/rpc2"));
-                    client.setTimeout(5); //5 sec
+                    //client = new XMLRPCClient(new URL("http://192.168.56.103:8000/rpc2"));
+                    //client.setTimeout(5); //5 sec
                     //   } catch (MalformedURLException e) {
                     //     e.printStackTrace();
                     //   }
@@ -65,20 +81,18 @@ public class DownloadTask extends AsyncTask<String, Void, Connections> {
                     //  System.out.println("HA HA HA");
                     e.printStackTrace();
                     error = e;
-                    return null;
+                 //   return null;
                 } catch (XMLRPCException e) {
                     error = e;
                     e.printStackTrace();
-                    return null;
+                 //   return null;
                 } catch (Exception e) {
                     error = e;
                     e.printStackTrace();
-                    return null;
+                //    return null;
                 }
                 //return con;
-                //return "zaglushka!";
             case "getDir":
-
                 //con.getDir(commands[1]);
                 //return con;
             case "startPlay":
@@ -99,6 +113,16 @@ public class DownloadTask extends AsyncTask<String, Void, Connections> {
             case "intentPlay":
                 //con.intentPlay(commands[1]);
                 //return con;
+            case "getFilename":
+                try {
+                    StatusMpv.setCurrentPlayFile((String)client.call("getFilename"));
+                    Log.d("Asdf", StatusMpv.getCurrentPlayFile());
+                } catch (XMLRPCException e) {
+                    e.printStackTrace();
+                }
+
+                //con.intentPlay(commands[1]);
+                //return con;
         }
         return null;
     }
@@ -108,7 +132,7 @@ public class DownloadTask extends AsyncTask<String, Void, Connections> {
      * operation in the log fragment.
      */
     @Override
-    protected void onPostExecute(Connections result) {
+    protected void onPostExecute(StatusMpv result) {
         // xz
 
         if (result!=null) {

@@ -1,6 +1,9 @@
 package com.example.avi.tabwithfragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -10,8 +13,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     DownloadTask mt;
+    //public  StatusMpv mStatusMpv;
+
+
+    public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+
+        Context context = getApplicationContext();
+        SharedPreferences sp =
+                PreferenceManager.getDefaultSharedPreferences(context);
+        sp.registerOnSharedPreferenceChangeListener(this);
+
+        String server = sp.getString("serverAddress", "");
+        StatusMpv.setServerAddress(server);
+
+        // TODO Проверять общие настройки, ключевые параметры и изменять UI
+        // или поведение приложения, если потребуется.
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +39,21 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Context context = getApplicationContext();
+        SharedPreferences sp =
+                PreferenceManager.getDefaultSharedPreferences(context);
+        sp.registerOnSharedPreferenceChangeListener(this);
+
+        String server = sp.getString("serverAddress", "");
+       // System.out.println(server);
+      //  mStatusMpv = new StatusMpv();
+
+        StatusMpv.setServerAddress(server);
+
         mt = new DownloadTask(this);
-        mt.execute("doIt");
+
+        mt.execute("getFilename");
+
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Controls"));

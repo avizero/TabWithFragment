@@ -6,27 +6,28 @@ import java.util.Map;
  * Created by avi on 02.02.2017.
  */
 
-public class StatusMpv {
+public  class StatusMpv {
     String[] sD;
     String[] sF;
     Map listDir;
-    String currentFile;
+    private static String currentPlayFile;
     String[] listSDir;
     Integer[] listImg;
+    private static String serverAddress;
 
-    public Map getListDir() {
-        return listDir;
+    public static String getServerAddress() {
+        return serverAddress;
     }
 
-    public void setListDir(Map listDir) {
-        this.listDir = listDir;
+    public static void setServerAddress(String serverAddress) {
+        StatusMpv.serverAddress = serverAddress;
     }
 
-    public String getCurrentFile() {
-        return currentFile;
+    public static String getCurrentPlayFile() {
+        return currentPlayFile;
     }
 
-    public void setCurrentFile(String currentFile) {
-        this.currentFile = currentFile;
+    public static void setCurrentPlayFile(String currentPlayFile) {
+        StatusMpv.currentPlayFile = currentPlayFile;
     }
 }
