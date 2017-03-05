@@ -3,6 +3,8 @@ package com.example.avi.tabwithfragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         // или поведение приложения, если потребуется.
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,15 +56,25 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         StatusMpv.setServerAddress(server);
 
+
+       // mt = new DownloadTask(this);
+       /// mt.execute("getFilename");
+
         mt = new DownloadTask(this);
+        mt.execute("getDir", ".");
 
-        mt.execute("getFilename");
 
+
+       // mt = new DownloadTask(this);
+      //  mt.execute("getDir");
+
+      //  DownloadTask mt3 = new DownloadTask(this);
+       // mt3.execute("getDir");
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Controls"));
         tabLayout.addTab(tabLayout.newTab().setText("Filelist"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
+      //  tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -83,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
         });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);

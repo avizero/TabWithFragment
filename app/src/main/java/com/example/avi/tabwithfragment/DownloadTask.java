@@ -8,6 +8,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import de.timroes.axmlrpc.XMLRPCClient;
 import de.timroes.axmlrpc.XMLRPCException;
@@ -17,7 +19,7 @@ import de.timroes.axmlrpc.XMLRPCTimeoutException;
  * Created by avi on 31.01.2017.
  */
 // TODO объеденить вместе с connections
-public class DownloadTask extends AsyncTask<String, Void, StatusMpv>  {
+public class DownloadTask extends AsyncTask<String, Void, Void>  {
 
     private Context mContext;
 
@@ -46,7 +48,7 @@ public class DownloadTask extends AsyncTask<String, Void, StatusMpv>  {
     }
 
     @Override
-    protected StatusMpv doInBackground(String... commands) {
+    protected Void doInBackground(String... commands) {
         //Connections con = new Connections();
 
         try {
@@ -75,7 +77,7 @@ public class DownloadTask extends AsyncTask<String, Void, StatusMpv>  {
                     //     e.printStackTrace();
                     //   }
                     Integer i = (Integer)client.call("add",10, 3);
-                    Log.d("Asdf", Integer.toString(i));
+                   // Log.d("Asdf", Integer.toString(i));
 
                 } catch (XMLRPCTimeoutException e) {
                     //  System.out.println("HA HA HA");
@@ -93,11 +95,30 @@ public class DownloadTask extends AsyncTask<String, Void, StatusMpv>  {
                 }
                 //return con;
             case "getDir":
-                //con.getDir(commands[1]);
-                //return con;
+                try {
+                   // StatusMpv.setListDir((HashMap) client.call("test_map", commands[1]));
+                    StatusMpv.setListDir((HashMap) client.call("test_map", commands[1]));
+                   // Object[] oD = (Object[]) listDir.get("dirs");
+                   // sD = Arrays.copyOf(oD, oD.length, String[].class);
+                   // Arrays.sort(sD, String.CASE_INSENSITIVE_ORDER);
+
+                   // Object[] oF = (Object[]) listDir.get("files");
+                   // sF = Arrays.copyOf(oF, oF.length, String[].class);
+                   // Arrays.sort(sF, String.CASE_INSENSITIVE_ORDER);
+
+                  //  listSDir = concatStr (sD, sF);
+                   // listImg = imageIdGet(sD,sF);
+                } catch (XMLRPCException e) {
+                   // e.printStackTrace();
+                }
+                break;
             case "startPlay":
-                //con.startPlay(commands[1]);
-                //return con;
+                try {
+                    client.call("startPlay",commands[1]);
+                } catch (XMLRPCException e) {
+                    //  e.printStackTrace();
+                }
+                break;
             case "seekPlay":
                 //con.seekPlay(commands[1]);
                 //return con;
@@ -108,8 +129,12 @@ public class DownloadTask extends AsyncTask<String, Void, StatusMpv>  {
                 //con.swAudio();
                 //return con;
             case "stopPlay":
-                //con.stopPlay();
-                //return con;
+                try {
+                    client.call("stopPlay");
+                } catch (XMLRPCException e) {
+                    //  e.printStackTrace();
+                }
+                break;
             case "intentPlay":
                 //con.intentPlay(commands[1]);
                 //return con;
@@ -118,12 +143,14 @@ public class DownloadTask extends AsyncTask<String, Void, StatusMpv>  {
                     StatusMpv.setCurrentPlayFile((String)client.call("getFilename"));
                     Log.d("Asdf", StatusMpv.getCurrentPlayFile());
                 } catch (XMLRPCException e) {
-                    e.printStackTrace();
+                  //  e.printStackTrace();
                 }
+                break;
 
                 //con.intentPlay(commands[1]);
                 //return con;
         }
+        //return null;
         return null;
     }
 
@@ -132,15 +159,15 @@ public class DownloadTask extends AsyncTask<String, Void, StatusMpv>  {
      * operation in the log fragment.
      */
     @Override
-    protected void onPostExecute(StatusMpv result) {
+    protected void onPostExecute(Void result) {
         // xz
 
-        if (result!=null) {
-              Toast.makeText(mContext, "Success!",
-                      Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(mContext, "Fuck!!", //error.getMessage(),
-                    Toast.LENGTH_SHORT).show();
-        }
+        //if (result!=null) {
+        //      Toast.makeText(mContext, "Success!",
+        //              Toast.LENGTH_SHORT).show();
+        //} else {
+       //     Toast.makeText(mContext, "Fuck!!", //error.getMessage(),
+       //             Toast.LENGTH_SHORT).show();
+       // }
     }
 }

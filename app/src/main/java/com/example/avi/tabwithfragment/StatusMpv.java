@@ -9,11 +9,28 @@ import java.util.Map;
 public  class StatusMpv {
     String[] sD;
     String[] sF;
-    Map listDir;
+    private static Map listDir;
+    private static Map ControlsMap;
     private static String currentPlayFile;
     String[] listSDir;
     Integer[] listImg;
     private static String serverAddress;
+
+    public static Map getControlsMap() {
+        return ControlsMap;
+    }
+
+    public static void setControlsMap(Map controlsMap) {
+        ControlsMap = controlsMap;
+    }
+
+    public static Map getListDir() {
+        return listDir;
+    }
+
+    public static void setListDir(Map listDir) {
+        StatusMpv.listDir = listDir;
+    }
 
     public static String getServerAddress() {
         return serverAddress;
